@@ -4,7 +4,8 @@ const route = express.Router();
 
 route.post('/', async (req, res) => {
     try {
-        const data = await createUser(req.body);
+        const userData = req.body;
+        const data = await createUser(userData);
         res.send(data);
     } catch (er) {
         res.send(er.message);
@@ -22,6 +23,7 @@ route.get('/', async (req, res) => {
 
 route.get('/:_id', async (req, res) => {
     try {
+        const { _id } = req.params;
         const data = await getUserID(req.params._id);
         res.send(data);
     } catch (er) {
