@@ -6,4 +6,9 @@ async function createUserDB(user) {
     return data;
 }
 
-module.exports = { createUserDB };
+async function getUserIDDB(_id) {
+    const data = await TableUser.find({ _id: new ObjectId(_id) });
+    return data;
+}
+
+module.exports = { createUserDB, getUserIDDB };

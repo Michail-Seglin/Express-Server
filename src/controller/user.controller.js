@@ -1,13 +1,22 @@
 const express = require('express');
-const { createUser } = require('../service/user.service');
+const { createUser, getUserID } = require('../service/user.service');
 const route = express.Router();
 
 route.post('/', async (req, res) => {
     try {
         const data = await createUser(req.body);
-        res.send;
+        res.send(data);
     } catch (er) {
         res.send(er.message);
+    }
+})
+
+route.get('/:_id', async (req, res) => {
+    try {
+        const data = await getUserID(req.params._id);
+        res.send(data);
+    } catch (er) {
+        res.send(er.message)
     }
 })
 
