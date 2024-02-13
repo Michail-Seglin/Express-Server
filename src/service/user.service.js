@@ -1,11 +1,12 @@
-const { get } = require("mongoose");
-const { createUserDB, getUserIDDB, getUsersDB } = require("../repository/user.repository")
+const { createUserDB, getUserIDDB, getUsersDB, deleteUserDB } = require("../repository/user.repository")
 const bcrypt = require('bcrypt');
 
 const salt = 10;
 
-async function createUser(user) {
-    const data = await createUserDB(user);
+async function createUser(userData) {
+    if (userData.password.length < 8) throw new Error('password 8 letters');
+    const hashPwd = await bcrypt.hash(userData.password, salt);
+    const data = await createUserDB({ ...userData, password: hashPwd });
     return data;
 }
 
@@ -19,4 +20,9 @@ async function getUserID(_id) {
     return data;
 }
 
-module.exports = { createUser, getUserID, getUsers }
+async function deleteUser(_id) {
+    return await deleteUserDB(_id);
+}
+
+
+module.exports = { createUser, getUserID, getUsers, deleteUser }

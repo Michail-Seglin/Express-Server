@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, getUserID, getUsers } = require('../service/user.service');
+const { createUser, getUserID, getUsers, deleteUser } = require('../service/user.service');
 const route = express.Router();
 
 route.post('/', async (req, res) => {
@@ -31,5 +31,14 @@ route.get('/:_id', async (req, res) => {
     }
 })
 
+route.delete('/:_id', async (req, res) => {
+    try {
+        const { _id } = req.params;
+        await deleteUser(req.params._id, 200);
+        res.send(data);
+    } catch (er) {
+        res.send(er.message)
+    }
+});
 
 module.exports = route;

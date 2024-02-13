@@ -16,4 +16,8 @@ async function getUserIDDB(_id) {
     return data;
 }
 
-module.exports = { createUserDB, getUserIDDB, getUsersDB };
+async function deleteUserDB(_id) {
+    return await TableUser.deleteOne({ _id: new ObjectId(_id) });
+}
+
+module.exports = { createUserDB, getUserIDDB, getUsersDB, deleteUserDB };
