@@ -20,4 +20,10 @@ async function deleteUserDB(_id) {
     return await TableUser.deleteOne({ _id: new ObjectId(_id) });
 }
 
-module.exports = { createUserDB, getUserIDDB, getUsersDB, deleteUserDB };
+async function updateUserDB(_id, user) {
+    await TableUser.updateOne({ _id: new ObjectId(_id) }, { $set: user });
+    const data = await TableUser.find({ _id: new ObjectId(_id) });
+    return data;
+}
+
+module.exports = { createUserDB, getUserIDDB, getUsersDB, deleteUserDB, updateUserDB };

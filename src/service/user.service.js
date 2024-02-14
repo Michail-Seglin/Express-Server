@@ -1,4 +1,4 @@
-const { createUserDB, getUserIDDB, getUsersDB, deleteUserDB } = require("../repository/user.repository")
+const { createUserDB, getUserIDDB, getUsersDB, deleteUserDB, updateUserDB } = require("../repository/user.repository")
 const bcrypt = require('bcrypt');
 
 const salt = 10;
@@ -24,5 +24,8 @@ async function deleteUser(_id) {
     return await deleteUserDB(_id);
 }
 
+async function updateUser(_id, user) {
+    return await updateUserDB(_id, user)
+}
 
-module.exports = { createUser, getUserID, getUsers, deleteUser }
+module.exports = { createUser, getUserID, getUsers, deleteUser, updateUser }
