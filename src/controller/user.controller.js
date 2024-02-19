@@ -6,18 +6,18 @@ route.post('/', async (req, res) => {
     try {
         const userData = req.body;
         const data = await createUser(userData);
-        res.send(data);
+        buildResponse(res, data, 200);
     } catch (er) {
-        res.send(er.message);
+        buildResponse(res, er.message, 404);
     }
 })
 
 route.get('/', async (req, res) => {
     try {
         const data = await getUsers();
-        res.send(data);
+        buildResponse(res, data, 200);
     } catch (er) {
-        res.send(er.message)
+        buildResponse(res, er.message, 404);
     }
 })
 
@@ -25,9 +25,9 @@ route.get('/:_id', async (req, res) => {
     try {
         const { _id } = req.params;
         const data = await getUserID(req.params._id);
-        res.send(data);
+        buildResponse(res, data, 200);
     } catch (er) {
-        res.send(er.message)
+        buildResponse(res, er.message, 404);
     }
 })
 
@@ -36,9 +36,9 @@ route.put('/:_id', async (req, res) => {
         const { _id } = req.params;
         const user = req.body;
         await updateUser((_id, user), 200);
-        res.send(data);
+        buildResponse(res, data, 200);
     } catch (er) {
-        res.send(er.message)
+        buildResponse(res, er.message, 404);
     }
 })
 
@@ -46,9 +46,9 @@ route.delete('/:_id', async (req, res) => {
     try {
         const { _id } = req.params;
         await deleteUser(req.params._id, 200);
-        res.send(data);
+        buildResponse(res, data, 200);
     } catch (er) {
-        res.send(er.message)
+        buildResponse(res, er.message, 404);
     }
 });
 
